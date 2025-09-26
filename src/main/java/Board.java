@@ -26,6 +26,7 @@ public class Board extends JPanel implements Runnable, Commons {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private static Board instance =null;
 	private Dimension d;
 	private ArrayList aliens;
 	private Player player;
@@ -49,7 +50,7 @@ public class Board extends JPanel implements Runnable, Commons {
 	/*
 	 * Constructor
 	 */
-	public Board() {
+	private Board() {
 		addKeyListener(new TAdapter());
 		setFocusable(true);
 		d = new Dimension(BOARD_WIDTH, BOARD_HEIGTH);
@@ -57,6 +58,12 @@ public class Board extends JPanel implements Runnable, Commons {
 
 		gameInit();
 		setDoubleBuffered(true);
+	}
+	public static Board getInstance(){
+		if (instance==null){
+			instance=new Board();
+		}
+		return instance;
 	}
 
 	public void addNotify() {
@@ -187,7 +194,7 @@ public class Board extends JPanel implements Runnable, Commons {
 	public void animationCycle() {
 		if (deaths == NUMBER_OF_ALIENS_TO_DESTROY) {
 			ingame = false;
-			message = "Parabéns! Você salvou a galáxia!";
+			message = "Parabï¿½ns! Vocï¿½ salvou a galï¿½xia!";
 		}
 
 		// player
@@ -266,7 +273,7 @@ public class Board extends JPanel implements Runnable, Commons {
 				if (y > GROUND - ALIEN_HEIGHT) {
 					havewon = false;
 					ingame = false;
-					message = "Aliens estão invadindo a galáxia!";
+					message = "Aliens estï¿½o invadindo a galï¿½xia!";
 				}
 
 				alien.act(direction);
