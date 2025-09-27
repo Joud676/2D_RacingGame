@@ -25,12 +25,12 @@ public class Board extends JPanel implements Runnable, Commons {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private String selectedShotType = "Normal"; // By Default
+	private Shot shot;
 	private static Board instance =null;
 	private Dimension d;
 	private ArrayList aliens;
 	private Player player;
-	private Shot shot;
 	private GameOver gameend;
 	private Won vunnet;
 
@@ -66,6 +66,14 @@ public class Board extends JPanel implements Runnable, Commons {
 		return instance;
 	}
 
+	public void setSelectedShotType(String shotType) {
+		this.selectedShotType = shotType;
+	}
+
+	public String getSelectedShotType() {
+		return selectedShotType;
+	}
+
 	public void addNotify() {
 		super.addNotify();
 		gameInit();
@@ -85,7 +93,9 @@ public class Board extends JPanel implements Runnable, Commons {
 		}
 
 		player = new Player();
-		shot = new Shot();
+
+		AbstractFactory shotFactory = FactoryProducer.getFactory("Shot");
+		shot = shotFactory.getShot(selectedShotType);
 
 		if (animator == null || !ingame) {
 			animator = new Thread(this);
@@ -354,6 +364,7 @@ public class Board extends JPanel implements Runnable, Commons {
 		}
 
 		public void keyPressed(KeyEvent e) {
+			AbstractFactory shotFactory = FactoryProducer.getFactory("Shot");
 
 			player.keyPressed(e);
 
@@ -364,8 +375,26 @@ public class Board extends JPanel implements Runnable, Commons {
 				int key = e.getKeyCode();
 				if (key == KeyEvent.VK_SPACE) {
 
-					if (!shot.isVisible())
-						shot = new Shot(x, y);
+					if (!shot.isVisible()) {
+						shot = shotFactory.getShot(selectedShotType);
+						shot.selectShot(x, y);
+					}
+				}
+
+				else if(key == KeyEvent.VK_W){
+					if (!shot.isVisible()) {
+						selectedShotType = "Water";
+						shot = shotFactory.getShot(selectedShotType);
+						shot.selectShot(x, y);
+					}
+				}
+
+				else if(key == KeyEvent.VK_F){
+					if (!shot.isVisible()) {
+						selectedShotType = "Fire";
+						shot = shotFactory.getShot(selectedShotType);
+						shot.selectShot(x, y);
+					}
 				}
 			}
 		}
