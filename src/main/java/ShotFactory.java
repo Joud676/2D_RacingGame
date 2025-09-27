@@ -1,5 +1,6 @@
 public class ShotFactory extends AbstractFactory {
 
+    @Override
     public Shot getShot(String shotType){
 
         if (shotType == null){
@@ -17,11 +18,8 @@ public class ShotFactory extends AbstractFactory {
 
         return null;
     }
-
+    @Override
     public Bomb getBomb(){
         return null;
     }
-
-
-
 }

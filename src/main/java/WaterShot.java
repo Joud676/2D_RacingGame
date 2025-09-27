@@ -3,15 +3,13 @@ import javax.swing.*;
 public class WaterShot extends Shot{
 
     final String WATER_SHOT ="/img/waterShot.png";
-    final int H_SPACE = 6;
-    final int V_SPACE = 1;
 
     public WaterShot(){
 
     }
 
     @Override
-    public void setSelectShot(int x, int y){
+    public void setupShot(int x, int y){
 
         ImageIcon ii = new ImageIcon(this.getClass().getResource(WATER_SHOT));
         setImage(ii.getImage());

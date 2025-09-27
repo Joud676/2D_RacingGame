@@ -134,7 +134,7 @@ public class SpaceInvaders extends JFrame implements Commons {
 
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			Board board = Board.getInstance();
+			//Board board = Board.getInstance();
 			// board.setSelectedShotType(SpaceInvaders.selectedShot);
 
 			/*

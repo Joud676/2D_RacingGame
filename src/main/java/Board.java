@@ -66,14 +66,6 @@ public class Board extends JPanel implements Runnable, Commons {
 		return instance;
 	}
 
-	public void setSelectedShotType(String shotType) {
-		this.selectedShotType = shotType;
-	}
-
-	public String getSelectedShotType() {
-		return selectedShotType;
-	}
-
 	public void addNotify() {
 		super.addNotify();
 		gameInit();
@@ -366,8 +358,8 @@ public class Board extends JPanel implements Runnable, Commons {
 		public void keyPressed(KeyEvent e) {
 			AbstractFactory shotFactory = FactoryProducer.getFactory("Shot");
 
-			player.keyPressed(e);
 
+			player.keyPressed(e);
 			int x = player.getX();
 			int y = player.getY();
 
@@ -377,7 +369,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
 					if (!shot.isVisible()) {
 						shot = shotFactory.getShot(selectedShotType);
-						shot.setSelectShot(x, y);
+						shot.setupShot(x, y);
 					}
 				}
 
@@ -385,7 +377,7 @@ public class Board extends JPanel implements Runnable, Commons {
 					if (!shot.isVisible()) {
 						selectedShotType = "Water";
 						shot = shotFactory.getShot(selectedShotType);
-						shot.setSelectShot(x, y);
+						shot.setupShot(x, y);
 					}
 				}
 
@@ -393,7 +385,7 @@ public class Board extends JPanel implements Runnable, Commons {
 					if (!shot.isVisible()) {
 						selectedShotType = "Fire";
 						shot = shotFactory.getShot(selectedShotType);
-						shot.setSelectShot(x, y);
+						shot.setupShot(x, y);
 					}
 				}
 			}
