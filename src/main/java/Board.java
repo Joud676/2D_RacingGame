@@ -377,7 +377,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
 					if (!shot.isVisible()) {
 						shot = shotFactory.getShot(selectedShotType);
-						shot.selectShot(x, y);
+						shot.setSelectShot(x, y);
 					}
 				}
 
@@ -385,7 +385,7 @@ public class Board extends JPanel implements Runnable, Commons {
 					if (!shot.isVisible()) {
 						selectedShotType = "Water";
 						shot = shotFactory.getShot(selectedShotType);
-						shot.selectShot(x, y);
+						shot.setSelectShot(x, y);
 					}
 				}
 
@@ -393,7 +393,7 @@ public class Board extends JPanel implements Runnable, Commons {
 					if (!shot.isVisible()) {
 						selectedShotType = "Fire";
 						shot = shotFactory.getShot(selectedShotType);
-						shot.selectShot(x, y);
+						shot.setSelectShot(x, y);
 					}
 				}
 			}

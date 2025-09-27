@@ -11,7 +11,7 @@ public class NormalShot extends Shot {
     }
 
     @Override
-    public void selectShot(int x, int y){
+    public void setSelectShot(int x, int y){
 
         ImageIcon ii = new ImageIcon(this.getClass().getResource(NORMAL_SHOT));
         setImage(ii.getImage());
