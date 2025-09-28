@@ -2,21 +2,15 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-/**
- * Space Invaders Game
- * @author
- */
 public class SpaceInvaders extends JFrame implements Commons {
 
 	private static final long serialVersionUID = -4905230094675077405L;
 
 	private JButton start, help;
-	/*
-	private JRadioButton normalShot, waterShot, fireShot;
-	private ButtonGroup shotGroup;
-	*/
+	private JRadioButton easyGame, hardGame;
+	private ButtonGroup difficultyGroup;
+	public static String selectedDifficulty = "Easy";
 
-	// Messages in English
 	private static final String TOP_MESSAGE = "Space Invaders <br> Java Version";
 	private static final String INITIAL_MESSAGE = "Help us, amazing captain!!"
 			+ "<br>The aliens are trying to invade our planet."
@@ -30,20 +24,13 @@ public class SpaceInvaders extends JFrame implements Commons {
 			+ "<br><br>Move Left: <br>Left Arrow Key"
 			+ "<br><br>Move Right: <br>Right Arrow Key"
 			+ "<br><br>Shoot with Normal Shot: <br>Space Bar"
-	        + "<br><br>Shoot with Water Shot: <br>W Letter"
+			+ "<br><br>Shoot with Water Shot: <br>W Letter"
 			+ "<br><br>Shoot with Fire Shot: <br>F Letter";
-
-
 
 	JFrame frame = new JFrame("Space Invaders");
 	JFrame frame2 = new JFrame("Space Invaders");
 	JFrame frame3 = new JFrame("Help");
 
-	// public static String selectedShot = "Normal"; // Default shot type
-
-	/*
-	 * Constructor
-	 */
 	public SpaceInvaders() {
 		String topmessage = "<html><br><br>" + TOP_MESSAGE + "</html>";
 		String message = "<html>" + INITIAL_MESSAGE + "</html>";
@@ -63,54 +50,39 @@ public class SpaceInvaders extends JFrame implements Commons {
 		Font font2 = new Font("Helvetica", Font.BOLD, 20);
 		toptekst.setFont(font2);
 
-		/*
-		// Radio buttons for shot selection
-		normalShot = new JRadioButton("Normal", true);
-		waterShot = new JRadioButton("Water");
-		fireShot = new JRadioButton("Fire");
+		easyGame = new JRadioButton("Easy", true);
+		hardGame = new JRadioButton("Hard");
 
-		shotGroup = new ButtonGroup();
-		shotGroup.add(normalShot);
-		shotGroup.add(waterShot);
-		shotGroup.add(fireShot);
+		difficultyGroup = new ButtonGroup();
+		difficultyGroup.add(easyGame);
+		difficultyGroup.add(hardGame);
 
-		// Panel for shot selection
-		JPanel shotPanel = new JPanel();
-		shotPanel.setBorder(BorderFactory.createTitledBorder("Choose Shot Type"));
-		shotPanel.add(normalShot);
-		shotPanel.add(waterShot);
-		shotPanel.add(fireShot);
+		ActionListener difficultyListener = e -> selectedDifficulty = e.getActionCommand();
+		easyGame.addActionListener(difficultyListener);
+		hardGame.addActionListener(difficultyListener);
 
-		// Listen for selection
-		ActionListener shotListener = e -> selectedShot = e.getActionCommand();
-		normalShot.setActionCommand("Normal");
-		waterShot.setActionCommand("Water");
-		fireShot.setActionCommand("Fire");
+		JPanel difficultyPanel = new JPanel();
+		difficultyPanel.add(easyGame);
+		difficultyPanel.add(hardGame);
 
-		normalShot.addActionListener(shotListener);
-		waterShot.addActionListener(shotListener);
-		fireShot.addActionListener(shotListener);
-		*/
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+		tekst.setAlignmentX(Component.CENTER_ALIGNMENT);
+		difficultyPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+		centerPanel.add(tekst);
+		centerPanel.add(difficultyPanel);
 
 		frame2.setTitle("Space Invaders");
-		frame2.add(tekst);
 		frame2.add(toptekst, BorderLayout.PAGE_START);
-
-		JPanel bottomPanel = new JPanel();
-		bottomPanel.setLayout(new BorderLayout());
-
-		/*
-		// Commented shotPanel since we're not using radio buttons anymore
-		bottomPanel.add(shotPanel, BorderLayout.NORTH);
-		*/
+		frame2.add(centerPanel, BorderLayout.CENTER);
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.add(help);
 		buttonPanel.add(start);
 
-		bottomPanel.add(buttonPanel, BorderLayout.SOUTH);
-		frame2.add(bottomPanel, BorderLayout.PAGE_END);
-		frame2.setSize(500, 500);
+		frame2.add(buttonPanel, BorderLayout.SOUTH);
+		frame2.setSize(500, 400);
 		frame2.setLocationRelativeTo(null);
 		frame2.setVisible(true);
 		frame2.setResizable(false);
@@ -125,23 +97,12 @@ public class SpaceInvaders extends JFrame implements Commons {
 		frame3.dispose();
 	}
 
-	/*
-	 * Main
-	 */
 	public static void main(String[] args) {
 		new SpaceInvaders();
 	}
 
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			//Board board = Board.getInstance();
-			// board.setSelectedShotType(SpaceInvaders.selectedShot);
-
-			/*
-			AbstractFactory shotFactory = FactoryProducer.getFactory("shot"); // Get The Shot Factory
-			Shot shot  = shotFactory.getShot(selectedShot);
-			*/
-
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(BOARD_WIDTH, BOARD_HEIGTH);
 			frame.getContentPane().add(Board.getInstance());
