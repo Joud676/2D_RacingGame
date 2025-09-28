@@ -17,10 +17,8 @@ public class ShotFactory extends AbstractFactory {
         return null;
     }
 
-    @Override
+       @Override
     Bomb getBomb(int x, int y, String difficulty) {
         return null;
     }
-
-
 }
