@@ -6,6 +6,7 @@ import javax.swing.ImageIcon;
  */
 public class Alien extends Sprite {
 
+	private AbstractFactory bombFactory = FactoryProducer.getFactory("Bomb");
     private Bomb bomb;
     private final String alien = "/img/alien.png";
 
@@ -16,7 +17,7 @@ public class Alien extends Sprite {
         this.x = x;
         this.y = y;
 
-        bomb = new Bomb(x, y);
+       bomb = bombFactory.getBomb(x,y,difficulty);
         ImageIcon ii = new ImageIcon(this.getClass().getResource(alien));
         setImage(ii.getImage());
 
