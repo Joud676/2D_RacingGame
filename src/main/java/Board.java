@@ -46,6 +46,8 @@ public class Board extends JPanel implements Runnable, Commons {
 	private String message = "Seu planeta nos pertence agora...";
 
 	private Thread animator;
+	private String difficulty;
+
 
 	/*
 	 * Constructor
@@ -66,6 +68,12 @@ public class Board extends JPanel implements Runnable, Commons {
 		return instance;
 	}
 
+	
+	// the value from the main class radiobutton
+	public void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
+	}
+
 	public void addNotify() {
 		super.addNotify();
 		gameInit();
@@ -78,7 +86,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 6; j++) {
-				Alien alien = new Alien(alienX + 18 * j, alienY + 18 * i////////////////////////////////////////////////////////////////);
+				Alien alien = new Alien(alienX + 18 * j, alienY + 18 * i,difficulty);
 				alien.setImage(ii.getImage());
 				aliens.add(alien);
 			}
@@ -317,7 +325,7 @@ public class Board extends JPanel implements Runnable, Commons {
 			}
 
 			if (!b.isDestroyed()) {
-				b.setY(b.getY() + 1);
+				b.move();
 				if (b.getY() >= GROUND - BOMB_HEIGHT) {
 					b.setDestroyed(true);
 				}
