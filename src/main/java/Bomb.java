@@ -1,23 +1,12 @@
-import javax.swing.ImageIcon;
 
-/**
- * 
- * @author 
- */
-public class Bomb extends Sprite {
-
-	private final String bomb = "/img/bomb.png";
-	private boolean destroyed;
-
-	/*
-	 * Constructor
-	 */
+public abstract class Bomb extends Sprite {
+	// change here to protected so the concrete classes can change
+	protected boolean destroyed;
+	protected int speed;
 	public Bomb(int x, int y) {
 		setDestroyed(true);
-		this.x = x;
-		this.y = y;
-		ImageIcon ii = new ImageIcon(this.getClass().getResource(bomb));
-		setImage(ii.getImage());
+		setX(x);
+		setY(y);
 	}
 
 	public void setDestroyed(boolean destroyed) {
@@ -27,4 +16,11 @@ public class Bomb extends Sprite {
 	public boolean isDestroyed() {
 		return destroyed;
 	}
+
+	public int getSpeed(){
+		return speed;
+	}
+	// we will use it in class board instaid of +1 polymorphisim
+	public abstract void move();
+
 }
