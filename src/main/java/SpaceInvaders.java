@@ -6,6 +6,7 @@ public class SpaceInvaders extends JFrame implements Commons {
 
 	private static final long serialVersionUID = -4905230094675077405L;
 
+	Board board;
 	private JButton start, help;
 	private JRadioButton easyGame, hardGame;
 	private ButtonGroup difficultyGroup;
@@ -103,13 +104,19 @@ public class SpaceInvaders extends JFrame implements Commons {
 
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
+
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setSize(BOARD_WIDTH, BOARD_HEIGTH);
-			frame.getContentPane().add(Board.getInstance());
 			frame.setResizable(false);
 			frame.setLocationRelativeTo(null);
 			frame.setVisible(true);
 			closeIntro();
+			// use the singletone pattren and
+			board = Board.getInstance();
+			board.setDifficulty(selectedDifficulty);
+			frame.getContentPane().add(board);
+
+
 		}
 	}
 
