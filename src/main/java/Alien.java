@@ -1,4 +1,5 @@
 import javax.swing.ImageIcon;
+import java.util.Objects;
 
 /**
  * 
@@ -6,19 +7,19 @@ import javax.swing.ImageIcon;
  */
 public class Alien extends Sprite {
 
-	private AbstractFactory bombFactory = FactoryProducer.getFactory("Bomb");
-    private Bomb bomb;
+    private AbstractFactory bombFactory = FactoryProducer.getFactory("Bomb");
+    Bomb bomb;
     private final String alien = "/img/alien.png";
 
     /*
-     * Constructor
+     * Constructor we add difficulty
      */
-    public Alien(int x, int y) {
+    public Alien(int x, int y,String difficulty ) {
         this.x = x;
         this.y = y;
 
-       bomb = bombFactory.getBomb(x,y,difficulty);
-        ImageIcon ii = new ImageIcon(this.getClass().getResource(alien));
+        bomb = bombFactory.getBomb(x,y,difficulty);
+        ImageIcon ii = new ImageIcon(Objects.requireNonNull(this.getClass().getResource(alien)));
         setImage(ii.getImage());
 
     }
