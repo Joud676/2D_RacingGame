@@ -6,7 +6,7 @@ public class BombFactory extends AbstractFactory {
             return null; }
         else if (difficulty.equalsIgnoreCase("easy")) {
             return new Stone(x,y);
-        } else if (difficulty.equalsIgnoreCase("medium")) {
+        } else if (difficulty.equalsIgnoreCase("hard")) {
             return new Missiles(x,y);
         }
         return null;
