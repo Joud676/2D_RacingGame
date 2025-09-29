@@ -5,6 +5,8 @@ public class FactoryProducer {
             return new ShotFactory();
         } else if (choice.equalsIgnoreCase("Bomb")){
             return new BombFactory();
+        } else if (choice.equalsIgnoreCase("Alien")) {
+            return new AlienFactory();
         }
         return null;
     }

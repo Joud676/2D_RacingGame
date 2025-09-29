@@ -28,11 +28,13 @@ public class Board extends JPanel implements Runnable, Commons {
 	private int alienY = 25;
 	private int direction = -1;
 	private int deaths = 0;
+	// الفضائي المحدث
+	private String selectedAlienType = "NORMAL";
+
 
 	private boolean ingame = true;
 	private boolean havewon = true;
 	private final String expl = "/img/explosion.png";
-	private final String alienpix = "/img/alien.png";
 	private String message = "Seu planeta nos pertence agora...";
 
 	private Thread animator;
@@ -63,21 +65,25 @@ public class Board extends JPanel implements Runnable, Commons {
 	public void setDifficulty(String difficulty) {
 		this.difficulty = difficulty;
 	}
+	public void setAlienType(String alienType) {
+		this.selectedAlienType = alienType.toUpperCase();
+	}
 
 	public void addNotify() {
 		super.addNotify();
 		gameInit();
 	}
-
 	public void gameInit() {
 		aliens = new ArrayList();
 
-		ImageIcon ii = new ImageIcon(this.getClass().getResource(alienpix));
+		// ✅ استخدام الـ Abstract Factory للفضائيين
+		AbstractFactory alienFactory = FactoryProducer.getFactory("Alien");
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 6; j++) {
-				Alien alien = new Alien(alienX + 18 * j, alienY + 18 * i, difficulty);
-				alien.setImage(ii.getImage());
+				// ✅ استخدام نوع واحد فقط - اللي اختاره المستخدم
+				Alien alien = alienFactory.getAlien(selectedAlienType);
+				alien.setupAlien(alienX + 18 * j, alienY + 18 * i, difficulty);
 				aliens.add(alien);
 			}
 		}

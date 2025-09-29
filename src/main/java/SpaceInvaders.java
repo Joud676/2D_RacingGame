@@ -8,9 +8,13 @@ public class SpaceInvaders extends JFrame implements Commons {
 
 	Board board;
 	private JButton start, help;
-	private JRadioButton easyGame, hardGame;
+	private JRadioButton easyGame,hardGame;
+	private JRadioButton normalAlien,rathAlien;
 	private ButtonGroup difficultyGroup;
+	private ButtonGroup	alienTypeGroup;
 	public static String selectedDifficulty = "Easy";
+	public static String selectedAlienType = "NORMAL";
+
 
 	private static final String TOP_MESSAGE = "Space Invaders <br> Java Version";
 	private static final String INITIAL_MESSAGE = "Help us, amazing captain!!"
@@ -51,6 +55,7 @@ public class SpaceInvaders extends JFrame implements Commons {
 		Font font2 = new Font("Helvetica", Font.BOLD, 20);
 		toptekst.setFont(font2);
 
+		// إعداد أزرار نوع الصعوبة
 		easyGame = new JRadioButton("Easy", true);
 		hardGame = new JRadioButton("Hard");
 
@@ -66,13 +71,42 @@ public class SpaceInvaders extends JFrame implements Commons {
 		difficultyPanel.add(easyGame);
 		difficultyPanel.add(hardGame);
 
+		// إعداد أزرار نوع الفضائي
+		normalAlien = new JRadioButton("Normal Alien", true);
+		rathAlien = new JRadioButton("Rath Alien");
+
+		alienTypeGroup = new ButtonGroup();
+		alienTypeGroup.add(normalAlien);
+		alienTypeGroup.add(rathAlien);
+
+		ActionListener alienTypeListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == normalAlien) {
+					selectedAlienType = "NORMAL";
+				} else if (e.getSource() == rathAlien) {
+					selectedAlienType = "RATH";
+				}
+				System.out.println("Selected Alien Type: " + selectedAlienType);
+			}
+		};
+		normalAlien.addActionListener(alienTypeListener);
+		rathAlien.addActionListener(alienTypeListener);
+		//  إنشاء panel لنوع الفضائي
+		JPanel alienTypePanel = new JPanel();
+		alienTypePanel.add(new JLabel("Alien Type: "));
+		alienTypePanel.add(normalAlien);
+		alienTypePanel.add(rathAlien);
+
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
 		tekst.setAlignmentX(Component.CENTER_ALIGNMENT);
 		difficultyPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		alienTypePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
 		centerPanel.add(tekst);
 		centerPanel.add(difficultyPanel);
+		centerPanel.add(Box.createRigidArea(new Dimension(0, 10))); // مسافة
+		centerPanel.add(alienTypePanel);
 
 		frame2.setTitle("Space Invaders");
 		frame2.add(toptekst, BorderLayout.PAGE_START);
@@ -83,7 +117,7 @@ public class SpaceInvaders extends JFrame implements Commons {
 		buttonPanel.add(start);
 
 		frame2.add(buttonPanel, BorderLayout.SOUTH);
-		frame2.setSize(500, 400);
+		frame2.setSize(500, 450);
 		frame2.setLocationRelativeTo(null);
 		frame2.setVisible(true);
 		frame2.setResizable(false);
@@ -99,6 +133,7 @@ public class SpaceInvaders extends JFrame implements Commons {
 	}
 
 	public static void main(String[] args) {
+
 		new SpaceInvaders();
 	}
 
@@ -114,6 +149,7 @@ public class SpaceInvaders extends JFrame implements Commons {
 			// use the singletone pattren and
 			board = Board.getInstance();
 			board.setDifficulty(selectedDifficulty);
+			board.setAlienType(selectedAlienType);
 			frame.getContentPane().add(board);
 
 

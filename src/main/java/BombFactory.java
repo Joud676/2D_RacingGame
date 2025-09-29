@@ -12,6 +12,11 @@ public class BombFactory extends AbstractFactory {
         return null;
     }
 
+    @Override
+    Alien getAlien(String alienType) {
+        return null;
+    }
+
     public Shot getShot(String shotType){
         return null;}}
 
