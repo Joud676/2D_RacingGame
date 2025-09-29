@@ -22,4 +22,9 @@ public class AlienFactory extends AbstractFactory {
     Bomb getBomb(int x, int y, String difficulty) {
         return null;
     }
+
+    @Override
+     Player getPlayer(String type) {
+        return null;
+    }
 }

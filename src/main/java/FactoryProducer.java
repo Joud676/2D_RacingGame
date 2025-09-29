@@ -8,6 +8,9 @@ public class FactoryProducer {
         } else if (choice.equalsIgnoreCase("Alien")) {
             return new AlienFactory();
         }
+        else if (choice.equalsIgnoreCase("Player")) {
+            return new PlayerFactory();
+        }
         return null;
     }
 

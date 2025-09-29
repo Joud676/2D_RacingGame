@@ -18,5 +18,10 @@ public class BombFactory extends AbstractFactory {
     }
 
     public Shot getShot(String shotType){
-        return null;}}
+        return null;}
+    public Player getPlayer(String type) {
+        return null;
+    }
+
+}
 

@@ -24,4 +24,8 @@ public class ShotFactory extends AbstractFactory {
     Alien getAlien (String alienType) {
         return null;
     }
+    Player getPlayer(String type) {
+        return null;
+    }
+
 }

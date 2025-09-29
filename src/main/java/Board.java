@@ -28,7 +28,7 @@ public class Board extends JPanel implements Runnable, Commons {
 	private int alienY = 25;
 	private int direction = -1;
 	private int deaths = 0;
-	// الفضائي المحدث
+
 	private String selectedAlienType = "NORMAL";
 
 
@@ -40,8 +40,9 @@ public class Board extends JPanel implements Runnable, Commons {
 	private Thread animator;
 	private String difficulty;
 
-	// ✅ الشوت المحدثة
+
 	private String selectedShotType = "Normal";
+	private String selectedPlayerType = "RED";
 
 	/*
 	 * Constructor
@@ -76,21 +77,19 @@ public class Board extends JPanel implements Runnable, Commons {
 	public void gameInit() {
 		aliens = new ArrayList();
 
-		// ✅ استخدام الـ Abstract Factory للفضائيين
 		AbstractFactory alienFactory = FactoryProducer.getFactory("Alien");
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 6; j++) {
-				// ✅ استخدام نوع واحد فقط - اللي اختاره المستخدم
 				Alien alien = alienFactory.getAlien(selectedAlienType);
 				alien.setupAlien(alienX + 18 * j, alienY + 18 * i, difficulty);
 				aliens.add(alien);
 			}
 		}
 
-		player = new Player();
+		AbstractFactory playerFactory = FactoryProducer.getFactory("Player");
+		player = playerFactory.getPlayer(selectedPlayerType);
 
-		// ✅ استخدام الـ Factory للشوت
 		AbstractFactory shotFactory = FactoryProducer.getFactory("Shot");
 		shot = shotFactory.getShot(selectedShotType);
 
@@ -340,6 +339,39 @@ public class Board extends JPanel implements Runnable, Commons {
 					selectedShotType = "Fire";
 					shot = shotFactory.getShot(selectedShotType);
 					shot.setupShot(x, y);
+				}
+
+				if (key == KeyEvent.VK_1) {
+					int oldX = player.getX();
+					int oldY = player.getY();
+
+					selectedPlayerType = "RED";
+					player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
+
+					player.setX(oldX);
+					player.setY(oldY);
+				}
+
+				if (key == KeyEvent.VK_2) {
+					int oldX = player.getX();
+					int oldY = player.getY();
+
+					selectedPlayerType = "GREEN";
+					player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
+
+					player.setX(oldX);
+					player.setY(oldY);
+				}
+
+				if (key == KeyEvent.VK_3) {
+					int oldX = player.getX();
+					int oldY = player.getY();
+
+					selectedPlayerType = "BLUE";
+					player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
+
+					player.setX(oldX);
+					player.setY(oldY);
 				}
 			}
 		}
