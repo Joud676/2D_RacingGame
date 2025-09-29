@@ -1,1 +1,12 @@
 /.project
+
+.idea/
+*.iml
+
+out/
+build/
+target/
+
+.DS_Store
+Thumbs.db
+
