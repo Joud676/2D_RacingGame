@@ -28,7 +28,7 @@ We applied it to separate the creation of game objects (Shots, Bombs, Players, A
 - Java JDK 8+  
 - Any IDE (IntelliJ / Eclipse / NetBeans)  
 
-### Run via Command Line
+### How To Play
 ```bash
 Controls
 ← / →: Move player
@@ -40,5 +40,6 @@ W: Shoot water
 F: Shoot fire
 
 1, 2, 3: Switch player types
+
 
 
