@@ -21,9 +21,11 @@ public class ShotFactory extends AbstractFactory {
     Bomb getBomb(int x, int y, String difficulty) {
         return null;
     }
+      @Override
     Alien getAlien (String alienType) {
         return null;
     }
+      @Override
     Player getPlayer(String type) {
         return null;
     }
