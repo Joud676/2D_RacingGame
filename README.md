@@ -30,8 +30,6 @@ We applied it to separate the creation of game objects (Shots, Bombs, Players, A
 
 ### Run via Command Line
 ```bash
-javac *.java
-java SpaceInvaders
 Controls
 ← / →: Move player
 
@@ -42,4 +40,5 @@ W: Shoot water
 F: Shoot fire
 
 1, 2, 3: Switch player types
+
 
