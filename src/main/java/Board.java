@@ -38,7 +38,7 @@ public class Board extends JPanel implements Runnable, Commons {
 	private String message = "Seu planeta nos pertence agora...";
 
 	private Thread animator;
-	private String difficulty;
+	private String difficulty= null;
 
 
 	private String selectedShotType = "Normal";
