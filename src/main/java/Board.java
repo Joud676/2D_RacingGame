@@ -35,7 +35,7 @@ public class Board extends JPanel implements Runnable, Commons {
 	private boolean ingame = true;
 	private boolean havewon = true;
 	private final String expl = "/img/explosion.png";
-	private String message = "Seu planeta nos pertence agora...";
+	private String message = "Your planet belongs to us now...";
 
 	private Thread animator;
 	private String difficulty= null;
@@ -249,7 +249,7 @@ public class Board extends JPanel implements Runnable, Commons {
 				if (y > GROUND - ALIEN_HEIGHT) {
 					havewon = false;
 					ingame = false;
-					message = "Aliens estão invadindo a galáxia!";
+					message = "Congratulations! You saved the galaxy!";
 				}
 				alien.act(direction);
 			}
