@@ -30,7 +30,11 @@ public class SpaceInvaders extends JFrame implements Commons {
 			+ "<br><br>Move Right: <br>Right Arrow Key"
 			+ "<br><br>Shoot with Normal Shot: <br>Space Bar"
 			+ "<br><br>Shoot with Water Shot: <br>W Letter"
-			+ "<br><br>Shoot with Fire Shot: <br>F Letter";
+			+ "<br><br>Shoot with Fire Shot: <br>F Letter"
+			+ "<br><br>Select Player: "
+			+ "<br>1 → Red Player (Normal Speed)"
+			+ "<br>2 → Green Player (Medium Speed)"
+			+ "<br>3 → Blue Player (Fast Speed)";
 
 	JFrame frame = new JFrame("Space Invaders");
 	JFrame frame2 = new JFrame("Space Invaders");
