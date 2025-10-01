@@ -1,11 +1,15 @@
+
 public class GreenPlayer extends Player {
+    public GreenPlayer(){
+
+    }
     @Override
-    protected String getImagePath() {
+    public  String getImagePath() {
         return "/img/craft_green .png";
     }
 
     @Override
-    protected int getSpeed() {
+    public  int getSpeed() {
         return 3;
     }
 }

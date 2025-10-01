@@ -1,11 +1,15 @@
+
 public class RedPlayer extends Player {
+    public RedPlayer(){
+
+    }
     @Override
-    protected String getImagePath() {
+    public String getImagePath() {
         return "/img/craft.png";
     }
 
     @Override
-    protected int getSpeed() {
+    public int getSpeed() {
         return 2;
     }
 }

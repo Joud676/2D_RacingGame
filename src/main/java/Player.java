@@ -8,11 +8,11 @@ import javax.swing.ImageIcon;
  */
 public abstract class Player extends Sprite implements Commons {
 
-	protected final int START_Y = 400;
-	protected final int START_X = 270;
+	private final int START_Y = 400;
+	private final int START_X = 270;
 
-	protected int width;
-	protected int speed;
+	private int width;
+	private int speed;
 
 	public Player() {
 		ImageIcon ii = new ImageIcon(this.getClass().getResource(getImagePath()));
@@ -24,8 +24,8 @@ public abstract class Player extends Sprite implements Commons {
 		this.speed = getSpeed();
 	}
 
-	protected abstract String getImagePath();
-	protected abstract int getSpeed();
+	public abstract String getImagePath();
+	public abstract int getSpeed();
 
 	public void act() {
 		x += dx;

@@ -1,12 +1,16 @@
 
 public class BluePlayer extends Player {
+
+    public BluePlayer(){
+
+    }
     @Override
-    protected String getImagePath() {
+    public String getImagePath() {
         return "/img/craft_blue .png";
     }
 
     @Override
-    protected int getSpeed() {
+    public int getSpeed() {
         return 4;
     }
 }
