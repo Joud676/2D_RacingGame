@@ -24,6 +24,7 @@ public class Board extends JPanel implements Runnable, Commons {
 	private GameOver gameend;
 	private Won vunnet;
 
+
 	private int alienX = 150;
 	private int alienY = 25;
 	private int direction = -1;
@@ -99,7 +100,7 @@ public class Board extends JPanel implements Runnable, Commons {
 		}
 	}
 
-	public void drawAliens(Graphics g,Alien alien) {
+	public void drawAliens(Graphics g) {
 		Iterator it = aliens.iterator();
 		while (it.hasNext()) {
 			Alien alien = (Alien) it.next();
