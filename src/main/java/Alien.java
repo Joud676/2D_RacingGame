@@ -23,5 +23,5 @@ public abstract class Alien extends Sprite {
         return bomb;
     }
     // this method overridden by concrete classes
-    public abstract void setupAlien(int x, int y, String difficulty);
+    public abstract void setupAlien(int x, int y, String difficulty, Alien alien);
 }

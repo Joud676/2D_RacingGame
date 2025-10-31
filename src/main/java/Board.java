@@ -82,7 +82,7 @@ public class Board extends JPanel implements Runnable, Commons {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 6; j++) {
 				Alien alien = alienFactory.getAlien(selectedAlienType);
-				alien.setupAlien(alienX + 18 * j, alienY + 18 * i, difficulty);
+				alien.setupAlien(alienX + 18 * j, alienY + 18 * i, difficulty, alien);
 				aliens.add(alien);
 			}
 		}
@@ -99,7 +99,7 @@ public class Board extends JPanel implements Runnable, Commons {
 		}
 	}
 
-	public void drawAliens(Graphics g) {
+	public void drawAliens(Graphics g,Alien alien) {
 		Iterator it = aliens.iterator();
 		while (it.hasNext()) {
 			Alien alien = (Alien) it.next();

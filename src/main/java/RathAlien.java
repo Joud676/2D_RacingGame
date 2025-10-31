@@ -9,10 +9,11 @@ public class RathAlien extends Alien {
         // Empty constructor
     }
     @Override
-    public void setupAlien(int x, int y, String difficulty) {
+    public void setupAlien(int x, int y, String difficulty, Alien alien) {
         this.x = x;
         this.y = y;
         this.difficulty = difficulty;
+        this.alien = alien;
 
         // Create bomb using factory
         bomb = bombFactory.getBomb(x, y, difficulty);
