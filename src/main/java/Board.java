@@ -45,6 +45,8 @@ public class Board extends JPanel implements Runnable, Commons {
 	private String selectedShotType = "Normal";
 	private String selectedPlayerType = "RED";
 
+	private GameIntegrationAdapter adapter;
+
 	/*
 	 * Constructor
 	 */
@@ -93,6 +95,19 @@ public class Board extends JPanel implements Runnable, Commons {
 
 		AbstractFactory shotFactory = FactoryProducer.getFactory("Shot");
 		shot = shotFactory.getShot(selectedShotType);
+
+		// ============ Adapter Integration ============
+		adapter = new GameIntegrationAdapter();
+
+		adapter.playBackgroundMusic("./src/com/spaceinvaders/main/ChillingMusic.wav");
+
+		// 3 Barriers
+		adapter.createBarrierGroup(100, GROUND - 100, 5, 10);   // حاجز 1
+		adapter.createBarrierGroup(270, GROUND - 100, 5, 10);   // حاجز 2
+		adapter.createBarrierGroup(440, GROUND - 100, 5, 10);   // حاجز 3
+
+		System.out.println("Adapter initialized: " + adapter.getBarriersCount() + " barriers created");
+		// ==========================================//
 
 		if (animator == null || !ingame) {
 			animator = new Thread(this);
@@ -152,7 +167,12 @@ public class Board extends JPanel implements Runnable, Commons {
 			drawPlayer(g);
 			drawShot(g);
 			drawBombing(g);
+
+			if (adapter != null) {
+				adapter.renderBarriers(g);
+			}
 		}
+
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -191,7 +211,6 @@ public class Board extends JPanel implements Runnable, Commons {
 
 		player.act();
 
-
 		if (shot.isVisible()) {
 			Iterator it = aliens.iterator();
 			int shotX = shot.getX();
@@ -210,6 +229,11 @@ public class Board extends JPanel implements Runnable, Commons {
 						alien.setDying(true);
 						deaths++;
 						shot.die();
+
+
+						if (adapter != null) {
+							adapter.playExplosionSound("./src/com/spaceinvaders/main/explosion.wav");
+						}
 					}
 				}
 			}
@@ -218,6 +242,10 @@ public class Board extends JPanel implements Runnable, Commons {
 			y -= 8;
 			if (y < 0) shot.die();
 			else shot.setY(y);
+
+			if (adapter != null && shot.isVisible()) {
+				adapter.checkShotCollisionWithBarriers(shot);
+			}
 		}
 
 		// aliens
@@ -286,95 +314,102 @@ public class Board extends JPanel implements Runnable, Commons {
 
 			if (!b.isDestroyed()) {
 				b.move();
+				if (adapter != null) {
+					adapter.checkBombCollisionWithBarriers(b);
+				}
 				if (b.getY() >= GROUND - BOMB_HEIGHT) {
 					b.setDestroyed(true);
 				}
 			}
 		}
+
+		if (adapter != null) {
+			adapter.updateBarriers();
+		}
 	}
 
-	public void run() {
-		long beforeTime, timeDiff, sleep;
-		beforeTime = System.currentTimeMillis();
-
-		while (ingame) {
-			repaint();
-			animationCycle();
-			timeDiff = System.currentTimeMillis() - beforeTime;
-			sleep = DELAY - timeDiff;
-			if (sleep < 0) sleep = 1;
-			try {
-				Thread.sleep(sleep);
-			} catch (InterruptedException e) {
-				System.out.println("interrupted");
-			}
+		public void run () {
+			long beforeTime, timeDiff, sleep;
 			beforeTime = System.currentTimeMillis();
+
+			while (ingame) {
+				repaint();
+				animationCycle();
+				timeDiff = System.currentTimeMillis() - beforeTime;
+				sleep = DELAY - timeDiff;
+				if (sleep < 0) sleep = 1;
+				try {
+					Thread.sleep(sleep);
+				} catch (InterruptedException e) {
+					System.out.println("interrupted");
+				}
+				beforeTime = System.currentTimeMillis();
+			}
+			gameOver();
 		}
-		gameOver();
-	}
 
-	private class TAdapter extends KeyAdapter {
+		private class TAdapter extends KeyAdapter {
 
-		public void keyReleased(KeyEvent e) {
-			player.keyReleased(e);
-		}
+			public void keyReleased(KeyEvent e) {
+				player.keyReleased(e);
+			}
 
-		public void keyPressed(KeyEvent e) {
-			AbstractFactory shotFactory = FactoryProducer.getFactory("Shot");
-			player.keyPressed(e);
-			int x = player.getX();
-			int y = player.getY();
+			public void keyPressed(KeyEvent e) {
+				AbstractFactory shotFactory = FactoryProducer.getFactory("Shot");
+				player.keyPressed(e);
+				int x = player.getX();
+				int y = player.getY();
 
-			if (ingame) {
-				int key = e.getKeyCode();
+				if (ingame) {
+					int key = e.getKeyCode();
 
-				if (key == KeyEvent.VK_SPACE && !shot.isVisible()) {
-					selectedShotType = "Normal";
-					shot = shotFactory.getShot(selectedShotType);
-					shot.setupShot(x, y);
-				} else if (key == KeyEvent.VK_W && !shot.isVisible()) {
-					selectedShotType = "Water";
-					shot = shotFactory.getShot(selectedShotType);
-					shot.setupShot(x, y);
-				} else if (key == KeyEvent.VK_F && !shot.isVisible()) {
-					selectedShotType = "Fire";
-					shot = shotFactory.getShot(selectedShotType);
-					shot.setupShot(x, y);
-				}
+					if (key == KeyEvent.VK_SPACE && !shot.isVisible()) {
+						selectedShotType = "Normal";
+						shot = shotFactory.getShot(selectedShotType);
+						shot.setupShot(x, y);
+					} else if (key == KeyEvent.VK_W && !shot.isVisible()) {
+						selectedShotType = "Water";
+						shot = shotFactory.getShot(selectedShotType);
+						shot.setupShot(x, y);
+					} else if (key == KeyEvent.VK_F && !shot.isVisible()) {
+						selectedShotType = "Fire";
+						shot = shotFactory.getShot(selectedShotType);
+						shot.setupShot(x, y);
+					}
 
-				if (key == KeyEvent.VK_1) {
-					int oldX = player.getX();
-					int oldY = player.getY();
+					if (key == KeyEvent.VK_1) {
+						int oldX = player.getX();
+						int oldY = player.getY();
 
-					selectedPlayerType = "RED";
-					player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
+						selectedPlayerType = "RED";
+						player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
 
-					player.setX(oldX);
-					player.setY(oldY);
-				}
+						player.setX(oldX);
+						player.setY(oldY);
+					}
 
-				if (key == KeyEvent.VK_2) {
-					int oldX = player.getX();
-					int oldY = player.getY();
+					if (key == KeyEvent.VK_2) {
+						int oldX = player.getX();
+						int oldY = player.getY();
 
-					selectedPlayerType = "GREEN";
-					player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
+						selectedPlayerType = "GREEN";
+						player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
 
-					player.setX(oldX);
-					player.setY(oldY);
-				}
+						player.setX(oldX);
+						player.setY(oldY);
+					}
 
-				if (key == KeyEvent.VK_3) {
-					int oldX = player.getX();
-					int oldY = player.getY();
+					if (key == KeyEvent.VK_3) {
+						int oldX = player.getX();
+						int oldY = player.getY();
 
-					selectedPlayerType = "BLUE";
-					player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
+						selectedPlayerType = "BLUE";
+						player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
 
-					player.setX(oldX);
-					player.setY(oldY);
+						player.setX(oldX);
+						player.setY(oldY);
+					}
 				}
 			}
 		}
 	}
-}
