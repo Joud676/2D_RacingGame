@@ -3,9 +3,8 @@ import java.awt.*;
 import java.util.Map;
 
 public class ShieldAccessProxy implements ShieldAccess {
-    private RealShieldAccess realAccess;
-    private QuestionBank bank;
-
+    private final RealShieldAccess realAccess;
+    private final QuestionBank bank;
 
     public ShieldAccessProxy() {
         this.realAccess = new RealShieldAccess();
@@ -14,13 +13,13 @@ public class ShieldAccessProxy implements ShieldAccess {
 
     @Override
     public void grantAccess() {
+        System.out.println("Proxy: Shield locked! Answer the question to activate...");
 
-        System.out.println("Proxy: Shield locked! Determine which design pattern is suitable with the scenario to unlock...");
+        Map.Entry<String, String> question = bank.getRandomQuestion();
+        String correctAnswer = question.getKey();
+        String scenario = question.getValue();
 
-        QuestionBank bank = new QuestionBank();
-        Map<String, String> question = bank.getRandomQuestion();
-
-        JTextArea textArea = new JTextArea(question.get("scenario"));
+        JTextArea textArea = new JTextArea(scenario);
         textArea.setWrapStyleWord(true);
         textArea.setLineWrap(true);
         textArea.setEditable(false);
@@ -37,10 +36,11 @@ public class ShieldAccessProxy implements ShieldAccess {
                 JOptionPane.QUESTION_MESSAGE
         );
 
-        boolean correct = (userAnswer != null && userAnswer.equalsIgnoreCase(question.get("answer")));
-
-        if (correct) {
+        if (userAnswer != null && userAnswer.equalsIgnoreCase(correctAnswer)) {
+            System.out.println("✅ Correct! Shield access granted.");
             realAccess.grantAccess();
+        } else {
+            System.out.println("❌ Wrong answer. Shield remains locked.");
         }
     }
 
