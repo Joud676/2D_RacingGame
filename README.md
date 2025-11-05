@@ -1,5 +1,3 @@
----
-
 # 🌌 Space Invaders – Design Patterns Edition 🎮
 
 ## 🧩 Overview
@@ -134,6 +132,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 | **Stage 2** | Adapter, Decorator, Proxy, Flyweight | `GameIntegrationAdapter`, `ShieldedPlayer`, `ShieldAccessProxy`, `Alien` |
 
 ---
+
 
 
 
