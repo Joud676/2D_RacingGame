@@ -54,6 +54,7 @@ public class Board extends JPanel implements Runnable, Commons {
     // adapter
     private GameIntegrationAdapter adapter;
 
+
     /*
      * Constructor
      */
@@ -129,16 +130,11 @@ public class Board extends JPanel implements Runnable, Commons {
 
         AbstractFactory shotFactory = FactoryProducer.getFactory("Shot");
         shot = shotFactory.getShot(selectedShotType);
-        // ============ Adapter Integration ============
-
+        // ====== Adapter Integration (Simplified) ======
         adapter = new GameIntegrationAdapter();
         adapter.playBackgroundMusic("./src/com/spaceinvaders/main/ChillingMusic.wav");
-        // 3 Barriers
-        adapter.createBarrierGroup(100, GROUND - 100, 5, 10);   // حاجز 1
-        adapter.createBarrierGroup(270, GROUND - 100, 5, 10);   // حاجز 2
-        adapter.createBarrierGroup(440, GROUND - 100, 5, 10);   // حاجز 3
-        System.out.println("Adapter initialized: " + adapter.getBarriersCount() + " barriers created");
-        // ==========================================//
+// ==============================================
+
         if (animator == null || !ingame) {
             animator = new Thread(this);
         }
@@ -201,10 +197,7 @@ public class Board extends JPanel implements Runnable, Commons {
             drawShot(g);
             drawBombing(g);
         }
-        // adapter
-        if (adapter != null) {
-            adapter.renderBarriers(g);
-        }
+
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
@@ -268,9 +261,6 @@ public class Board extends JPanel implements Runnable, Commons {
             y -= 8;
             if (y < 0) shot.die();
             else shot.setY(y);
-            if (adapter != null && shot.isVisible()) {
-                adapter.checkShotCollisionWithBarriers(shot);
-            }
         }
         // aliens
         Iterator it1 = aliens.iterator();
@@ -343,18 +333,13 @@ public class Board extends JPanel implements Runnable, Commons {
                 }
                 if (!b.isDestroyed()) {
                     b.move();
-                    if (adapter != null) {
-                        adapter.checkBombCollisionWithBarriers(b);
-                    }
                     if (b.getY() >= GROUND - BOMB_HEIGHT) {
                         b.setDestroyed(true);
                     }
                 }
             }
         }
-        if (adapter != null) {
-            adapter.updateBarriers();
-        }
+
     }
 
     public void run() {

@@ -5,7 +5,7 @@ import javax.swing.ImageIcon;
 
 public class AlienFactory extends AbstractFactory {
 
-    private static Map<String, Image> alienImages = new HashMap<>();
+    private static final Map<String, Image> alienImages = new HashMap<>();
 
     private Image getSharedAlienImage(String alienType) {
         String key = alienType.toUpperCase();
@@ -59,3 +59,4 @@ public class AlienFactory extends AbstractFactory {
         return null;
     }
 }
+

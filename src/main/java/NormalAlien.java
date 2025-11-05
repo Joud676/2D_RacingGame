@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.util.Objects;
+import java.awt.Image;
+
 
 public class NormalAlien extends Alien {
 
