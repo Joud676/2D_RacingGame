@@ -2,20 +2,17 @@ import java.util.HashMap;
 
 public class AlienFactory extends AbstractFactory {
 
-    private static final HashMap<String, Alien> alienMap = new HashMap<>();
     @Override
     public Alien getAlien(String alienType) {
-
-        Alien alien = alienMap.get(alienType);
-        if (alien == null) {
-            if (alienType.equalsIgnoreCase("NORMAL")) {
-                alien = new NormalAlien();
-            } else if (alienType.equalsIgnoreCase("RATH")) {
-                alien = new RathAlien();
-            }
-            alienMap.put(alienType, alien);
+        if (alienType == null) {
+            return null;
         }
-        return alien;
+        if (alienType.equalsIgnoreCase("NORMAL")) {
+            return new NormalAlien();
+        } else if (alienType.equalsIgnoreCase("RATH")) {
+            return new RathAlien();
+        }
+        return null;
     }
 
     @Override

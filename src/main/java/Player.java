@@ -1,9 +1,10 @@
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 
 /**
- * 
+ *
  * @author
  */
 public abstract class Player extends Sprite implements Commons {
@@ -11,21 +12,26 @@ public abstract class Player extends Sprite implements Commons {
 	private final int START_Y = 400;
 	private final int START_X = 270;
 
-	private int width;
-	private int speed;
+	protected int width;
+	protected int speed;
 
 	public Player() {
-		ImageIcon ii = new ImageIcon(this.getClass().getResource(getImagePath()));
-		width = ii.getImage().getWidth(null);
-		setImage(ii.getImage());
+	// removed image
 		setX(START_X);
 		setY(START_Y);
 
-		this.speed = getSpeed();
+	//	this.speed = getSpeed();
 	}
 
 	public abstract String getImagePath();
 	public abstract int getSpeed();
+
+	//method for Decorator called by Board and modified by ShieldedPlayer.
+	public abstract void draw(Graphics g);
+	public void shoot() {
+		// Base shooting logic (all concrete players inherit this)
+		System.out.println(this.getClass().getSimpleName() + ": Base player fires a standard shot.");
+	}
 
 	public void act() {
 		x += dx;
@@ -51,4 +57,6 @@ public abstract class Player extends Sprite implements Commons {
 			dx = 0;
 		}
 	}
+
+	
 }
