@@ -117,9 +117,9 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 ## ⚙️ Technical Details
 
 **Language:** Java
-**Tools:** IntelliJ IDEA / Eclipse
-**JDK Version:** 8+
-**Design Patterns Covered:**
+* **Tools:** IntelliJ IDEA / Eclipse
+* **JDK Version:** 8+
+* **Design Patterns Covered:**
 
 * **Creational:** Singleton, Abstract Factory
 * **Structural:** Adapter, Decorator, Proxy, Flyweight
@@ -134,6 +134,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 | **Stage 2** | Adapter, Decorator, Proxy, Flyweight | `GameIntegrationAdapter`, `ShieldedPlayer`, `ShieldAccessProxy`, `Alien` |
 
 ---
+
 
 
 
