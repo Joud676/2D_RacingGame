@@ -4,9 +4,6 @@ import java.awt.event.KeyEvent;
 public  abstract class PlayerDecorator extends Player {
     protected Player decoratedPlayer;
 
-    protected int shieldHits = 0;
-    public static final int MAX_HITS = 2;
-
     public PlayerDecorator(Player decoratedPlayer){
         this.decoratedPlayer=decoratedPlayer;
         //for movement drawing starts correctly
