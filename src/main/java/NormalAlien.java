@@ -5,8 +5,9 @@ public class NormalAlien extends Alien {
 
     private final String NORMAL_ALIEN = "/img/alien.png";
 
-    public NormalAlien() {
-        // Empty constructor
+    public NormalAlien(Image sharedImage) {
+        super();
+        super.setImage(sharedImage);
     }
     @Override
     public void setupAlien(int x, int y, String difficulty, Alien alien) {
@@ -20,7 +21,7 @@ public class NormalAlien extends Alien {
         bomb = bombFactory.getBomb(x, y, difficulty);
 
         // Setup image
-        ImageIcon ii = new ImageIcon(this.getClass().getResource(NORMAL_ALIEN));
-        setImage(ii.getImage());
+        // ImageIcon ii = new ImageIcon(this.getClass().getResource(NORMAL_ALIEN));
+        // setImage(ii.getImage());
     }
 }
