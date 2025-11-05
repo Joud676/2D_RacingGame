@@ -11,10 +11,6 @@ public class ShieldAccessProxy implements ShieldAccess {
 
     @Override
     public boolean grantAccess() {
-//        if (questionSolved) {
-//            System.out.println("Proxy: Puzzle already solved.");
-//            return realAccess.grantAccess();
-//        }
 
         System.out.println("Proxy: Shield locked! Determine which design pattern is suitable with the scenario to unlock...");
 
@@ -42,10 +38,8 @@ public class ShieldAccessProxy implements ShieldAccess {
 
         if (correct) {
             questionSolved = true;
-            System.out.println("✅ Proxy: Correct answer! Delegating to real access...");
             return realAccess.grantAccess();
         } else {
-            System.out.println("❌ Proxy: Wrong answer! Access denied.");
             return false;
         }
     }
