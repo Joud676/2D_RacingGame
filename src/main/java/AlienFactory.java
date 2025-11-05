@@ -1,18 +1,47 @@
+import java.awt.Image;
 import java.util.HashMap;
+import java.util.Map;
+import javax.swing.ImageIcon;
 
 public class AlienFactory extends AbstractFactory {
 
+    private static Map<String, Image> alienImages = new HashMap<>();
+
+    private Image getSharedAlienImage(String alienType) {
+        String key = alienType.toUpperCase();
+
+        if (!alienImages.containsKey(key)) {
+            String imagePath = "";
+
+            if (key.equals("NORMAL")) {
+                imagePath = "/img/alien.png";
+            } else if (key.equals("RATH")) {
+                imagePath = "/img/Rath.png";
+            }
+                ImageIcon ii = new ImageIcon(getClass().getResource(imagePath));
+                alienImages.put(key, ii.getImage());
+
+        }
+        return alienImages.get(key);
+    }
+
     @Override
     public Alien getAlien(String alienType) {
-        if (alienType == null) {
-            return null;
-        }
+
+        // the clint of the flyweight
+        // خذ النوع الي هو الkey وارسله لميثود  getSharedAlienImage هذه تشةف اذا هذا النوع مسوى ترجع صورته
+        // بعدها الصورة تتخزن هنا
+        Image sharedImage = getSharedAlienImage(alienType);
+
+        Alien alien = null;
         if (alienType.equalsIgnoreCase("NORMAL")) {
-            return new NormalAlien();
+            alien = new NormalAlien(sharedImage);
+
         } else if (alienType.equalsIgnoreCase("RATH")) {
-            return new RathAlien();
+            alien = new RathAlien(sharedImage);
         }
-        return null;
+
+        return alien;
     }
 
     @Override
