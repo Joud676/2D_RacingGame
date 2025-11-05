@@ -77,6 +77,18 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 
 ---
 
+🎮 **Stage 2 Key Features:**
+
+* Interactive **shield unlocking system** using the Proxy Pattern
+* **Decorated Player** class with a dynamic visual shield overlay
+* **Two-hit protection system** before the shield breaks
+* **Integrated Sound and Barrier systems** through Adapter Pattern
+* Optimized **Alien management** with Flyweight for performance
+* Enhanced **learning experience** via real-world pattern questions
+* Real-time feedback for correct or incorrect answers
+
+---
+
 ## 🧠 Educational Component
 
 * **QuestionBank:** Contains 12 real-world design pattern scenarios.
@@ -85,6 +97,8 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 * **Purpose:** Turn gameplay into a hands-on software engineering experience.
 
 ---
+
+
 
 ## 🎮 Gameplay Summary
 
@@ -120,4 +134,5 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 | **Stage 2** | Adapter, Decorator, Proxy, Flyweight | `GameIntegrationAdapter`, `ShieldedPlayer`, `ShieldAccessProxy`, `Alien` |
 
 ---
+
 
