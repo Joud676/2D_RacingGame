@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.util.Objects;
 
+import java.awt.Image;
+
 public class NormalAlien extends Alien {
 
     private final String NORMAL_ALIEN = "/img/alien.png";
