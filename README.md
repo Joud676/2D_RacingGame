@@ -7,7 +7,7 @@
 This project is a **modern, refactored version** of the classic *Space Invaders* game, developed in **Java**.
 It demonstrates the application of **Creational** and **Structural Design Patterns** to create a scalable, flexible, and educational game system.
 
-Players not only enjoy classic gameplay — they also **learn software design patterns** interactively through the shield system.
+Players not only enjoy classic gameplay, they also **learn software design patterns** interactively through the shield system.
 
 ---
 
@@ -120,3 +120,4 @@ Players not only enjoy classic gameplay — they also **learn software design pa
 | **Stage 2** | Adapter, Decorator, Proxy, Flyweight | `GameIntegrationAdapter`, `ShieldedPlayer`, `ShieldAccessProxy`, `Alien` |
 
 ---
+
