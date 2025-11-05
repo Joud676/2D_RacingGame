@@ -1,4 +1,4 @@
 public interface ShieldAccess {
-    public boolean grantAccess();
+    public void grantAccess();
     public boolean isGranted();
 }

@@ -198,7 +198,8 @@ public class SpaceInvaders extends JFrame implements Commons {
 
             if (wantsShield) {
                 ShieldAccess access = new ShieldAccessProxy();
-                shieldAccessGranted = access.grantAccess();
+                access.grantAccess();
+                shieldAccessGranted = access.isGranted();
 
                 if (!shieldAccessGranted) {
                     JOptionPane.showMessageDialog(frame2,
