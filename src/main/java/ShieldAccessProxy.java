@@ -1,11 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class ShieldAccessProxy implements ShieldAccess {
     private RealShieldAccess realAccess;
+    private QuestionBank bank;
+
 
     public ShieldAccessProxy() {
         this.realAccess = new RealShieldAccess();
+        this.bank = new QuestionBank();
     }
 
     @Override
@@ -14,9 +18,9 @@ public class ShieldAccessProxy implements ShieldAccess {
         System.out.println("Proxy: Shield locked! Determine which design pattern is suitable with the scenario to unlock...");
 
         QuestionBank bank = new QuestionBank();
-        Question question = bank.getRandomQuestion();
+        Map<String, String> question = bank.getRandomQuestion();
 
-        JTextArea textArea = new JTextArea(question.getScenario());
+        JTextArea textArea = new JTextArea(question.get("scenario"));
         textArea.setWrapStyleWord(true);
         textArea.setLineWrap(true);
         textArea.setEditable(false);
@@ -33,7 +37,7 @@ public class ShieldAccessProxy implements ShieldAccess {
                 JOptionPane.QUESTION_MESSAGE
         );
 
-        boolean correct = (userAnswer != null && userAnswer.equalsIgnoreCase(question.getCorrectAnswer()));
+        boolean correct = (userAnswer != null && userAnswer.equalsIgnoreCase(question.get("answer")));
 
         if (correct) {
             realAccess.grantAccess();
