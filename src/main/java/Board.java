@@ -116,6 +116,13 @@ public class Board extends JPanel implements Runnable, Commons {
                 alien.setupAlien(alienX + 18 * j, alienY + 18 * i, difficulty, alien);
                 aliens.add(alien);
             }
+
+			//  نطبع اـ hashCode للصور
+			System.out.println("\n Checking Image im memory :");
+			for (Object obj : aliens) {
+				Alien alien = (Alien) obj;
+				System.out.println("Image Hash: " + alien.getImage().hashCode());
+			}
         }
         AbstractFactory playerFactory = FactoryProducer.getFactory("Player");
         player = playerFactory.getPlayer(selectedPlayerType);

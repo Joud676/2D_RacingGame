@@ -2,8 +2,8 @@ public class RealShieldAccess implements ShieldAccess {
     private boolean granted = false;
 
     @Override
-    public boolean grantAccess() {
-        return granted = true;
+    public void grantAccess() {
+        granted = true;
     }
 
     @Override
