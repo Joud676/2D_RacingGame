@@ -44,7 +44,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 * **Purpose:** Connects and adapts external systems (like **Sound** and **Barrier**) to the main game logic.
 * **Benefit:** Allows components with incompatible interfaces to work seamlessly together.
 
----
+
 
 ### **2. Decorator Pattern**
 
@@ -53,7 +53,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 * **Behavior:** The shield absorbs **two bomb hits**, then automatically gets removed.
 * **Benefit:** Extends player capabilities in a flexible, non-intrusive way.
 
----
+
 
 ### **3. Proxy Pattern**
 
@@ -67,7 +67,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
   4. If wrong → No shield ❌
 * **Benefit:** Combines gameplay and learning, reinforcing understanding of design patterns interactively.
 
----
+
 
 ### **4. Flyweight Pattern**
 
@@ -75,7 +75,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 * **Purpose:** Efficiently manages multiple (24+) alien instances by sharing common data (intrinsic state).
 * **Benefit:** Greatly reduces memory usage and enhances performance.
 
----
+
 
 🎮 **Stage 2 Key Features:**
 
@@ -134,5 +134,6 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 | **Stage 2** | Adapter, Decorator, Proxy, Flyweight | `GameIntegrationAdapter`, `ShieldedPlayer`, `ShieldAccessProxy`, `Alien` |
 
 ---
+
 
 
