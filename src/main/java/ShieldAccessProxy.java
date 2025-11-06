@@ -17,22 +17,7 @@ public class ShieldAccessProxy {
         String correctAnswer = question.getKey();
         String scenario = question.getValue();
 
-        JTextArea textArea = new JTextArea(scenario);
-        textArea.setWrapStyleWord(true);
-        textArea.setLineWrap(true);
-        textArea.setEditable(false);
-        textArea.setFont(new Font("Helvetica", Font.PLAIN, 14));
-        textArea.setColumns(30);
-        textArea.setRows(5);
-
-        JScrollPane scrollPane = new JScrollPane(textArea);
-
-        String userAnswer = JOptionPane.showInputDialog(
-                null,
-                scrollPane,
-                "Shield Activation Question",
-                JOptionPane.QUESTION_MESSAGE
-        );
+        String userAnswer = showQuestion(scenario);
 
         if (userAnswer != null && userAnswer.equalsIgnoreCase(correctAnswer)) {
             JOptionPane.showMessageDialog(null,
@@ -52,6 +37,25 @@ public class ShieldAccessProxy {
         return player;
     }
 
+
+    private String showQuestion(String scenario) {
+        JTextArea textArea = new JTextArea(scenario);
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        textArea.setEditable(false);
+        textArea.setFont(new Font("Helvetica", Font.PLAIN, 14));
+        textArea.setColumns(30);
+        textArea.setRows(5);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+        return JOptionPane.showInputDialog(
+                null,
+                scrollPane,
+                "Shield Activation Question",
+                JOptionPane.QUESTION_MESSAGE
+        );
+    }
 }
 
 
