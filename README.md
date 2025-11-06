@@ -69,9 +69,11 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 
 ### **4. Flyweight Pattern**
 
-* **Classes:** `Alien`, `RathAlien`, shared attributes via factories
-* **Purpose:** Efficiently manages multiple (24+) alien instances by sharing common data (intrinsic state).
-* **Benefit:** Greatly reduces memory usage and enhances performance.
+* **Classes:** `AlienFactory`, `Alien`, `RathAlien`
+* **Implementation:** Modified the existing `AlienFactory` by introducing a `HashMap` and a `getSharedAlienImage()` method.
+* **Purpose:** The method checks whether a similar alien image already exists in the map — if yes, it reuses it; if not, it creates a new one, stores it in the map, and returns it.
+* **Proof of Correctness:** The `hashCode()` method was used to print the memory locations of all alien objects, demonstrating that identical images share the same object reference.
+* **Benefit:** Reduces memory consumption and improves performance by reusing shared alien images instead of creating new ones for every instance.
 
 
 
@@ -132,6 +134,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 | **Stage 2** | Adapter, Decorator, Proxy, Flyweight | `GameIntegrationAdapter`, `ShieldedPlayer`, `ShieldAccessProxy`, `Alien` |
 
 ---
+
 
 
 
