@@ -8,8 +8,9 @@ public class ShieldedPlayer extends PlayerDecorator{
     protected int shieldHits = 0;
     static final int MAX_HITS = 2;
 
-    public ShieldedPlayer(Player player) {
+    public ShieldedPlayer(Player player, int initialHits) {
         super(player);
+        this.shieldHits = initialHits;
     }
     @Override
     public void draw(Graphics g) {

@@ -46,7 +46,6 @@ public class Board extends JPanel implements Runnable, Commons {
 
     // shield attributes
     private boolean wantsShield;
-    static boolean shieldAccessGranted = false;
     static boolean shieldActive = false;
 
     Random generator = new Random();
@@ -89,9 +88,6 @@ public class Board extends JPanel implements Runnable, Commons {
         this.selectedAlienType = alienType.toUpperCase();
     }
 
-    public void setshieldAccess(boolean shieldAccess) {
-        this.shieldAccessGranted = shieldAccess;
-    }
 
     public void setWantsShield(boolean wantsShield) {
         this.wantsShield = wantsShield;
@@ -127,12 +123,21 @@ public class Board extends JPanel implements Runnable, Commons {
         AbstractFactory playerFactory = FactoryProducer.getFactory("Player");
         player = playerFactory.getPlayer(selectedPlayerType);
 
-        if (wantsShield && shieldAccessGranted) {
-            System.out.println("Applying shield to player!");
-            player = new ShieldedPlayer(player);
-            shieldActive = true;
+        if (wantsShield) {
+            ShieldAccessProxy proxy = new ShieldAccessProxy();
+
+            Player resultPlayer = proxy.grantShieldAccess(player);
+
+            player = resultPlayer;
+
+            if (player instanceof ShieldedPlayer) {
+                System.out.println("Applying shield to player! (Access Granted)");
+                shieldActive = true;
+            } else {
+                System.out.println("No shield applied (Answer Wrong/No Access)");
+            }
         } else {
-            System.out.println("No shield applied");
+            System.out.println("No shield applied since the User did not want shield");
         }
 
         AbstractFactory shotFactory = FactoryProducer.getFactory("Shot");
@@ -163,7 +168,7 @@ public class Board extends JPanel implements Runnable, Commons {
     public void drawPlayer(Graphics g) {
         // if shielded or any normal player
         if (player.isVisible()) {
-            if (player instanceof ShieldedPlayer) {
+            if (shieldActive) {
                 ((ShieldedPlayer) player).draw(g);
             } else {
                 g.drawImage(player.getImage(), player.getX(), player.getY(), this);
@@ -322,13 +327,12 @@ public class Board extends JPanel implements Runnable, Commons {
                     if (bombX >= playerX && bombX <= (playerX + PLAYER_WIDTH)
                             && bombY >= playerY && bombY <= (playerY + PLAYER_HEIGHT)) {
                         b.setDestroyed(true);
-                        if (player instanceof ShieldedPlayer) {
+                        if (shieldActive) {
                             ShieldedPlayer shieldedPlayer = (ShieldedPlayer) player;
                             shieldedPlayer.hitByBomb(); // add to the hit number
                             if (shieldedPlayer.getShieldHits() >= ShieldedPlayer.MAX_HITS) {
                                 player = shieldedPlayer.getDecoratedPlayer();
                                 shieldActive = false;
-                                shieldAccessGranted = false;
                                 System.out.println("Shield destroyed! Access revoked.");
                             }
                         } else {
@@ -394,41 +398,36 @@ public class Board extends JPanel implements Runnable, Commons {
                     shot = shotFactory.getShot(selectedShotType);
                     shot.setupShot(x, y);
                 }
-                if (key == KeyEvent.VK_1) {
+
+                if (key == KeyEvent.VK_1 || key == KeyEvent.VK_2 || key == KeyEvent.VK_3) {
+
                     int oldX = player.getX();
                     int oldY = player.getY();
-                    selectedPlayerType = "RED";
-                    player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
-                    player.setX(oldX);
-                    player.setY(oldY);
-                    // adding it to avoid not showing the shield when changing the player
-                    if (shieldActive) {
-                        player = new ShieldedPlayer(player);
+                    int oldShieldHits = 0;
+
+
+                    if (player instanceof ShieldedPlayer) {
+                        oldShieldHits = ((ShieldedPlayer) player).getShieldHits();
+                        player = ((ShieldedPlayer) player).getDecoratedPlayer();
                     }
-                }
-                if (key == KeyEvent.VK_2) {
-                    int oldX = player.getX();
-                    int oldY = player.getY();
-                    selectedPlayerType = "GREEN";
-                    player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
-                    player.setX(oldX);
-                    player.setY(oldY);
-                    // adding it to avoid not showing the shield when changing the player
+
+
+                    if (key == KeyEvent.VK_1) selectedPlayerType = "RED";
+                    if (key == KeyEvent.VK_2) selectedPlayerType = "GREEN";
+                    if (key == KeyEvent.VK_3) selectedPlayerType = "BLUE";
+
+
+
+                    Player newPlayer = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
+                    newPlayer.setX(oldX);
+                    newPlayer.setY(oldY);
+
                     if (shieldActive) {
-                        player = new ShieldedPlayer(player);
+                        player = new ShieldedPlayer(newPlayer, oldShieldHits);
+                    } else {
+                        player = newPlayer;
                     }
-                }
-                if (key == KeyEvent.VK_3) {
-                    int oldX = player.getX();
-                    int oldY = player.getY();
-                    selectedPlayerType = "BLUE";
-                    player = FactoryProducer.getFactory("Player").getPlayer(selectedPlayerType);
-                    player.setX(oldX);
-                    player.setY(oldY);
-                    // adding it to avoid not showing the shield when changing the player
-                    if (shieldActive) {
-                        player = new ShieldedPlayer(player);
-                    }
+
                 }
             }
         }

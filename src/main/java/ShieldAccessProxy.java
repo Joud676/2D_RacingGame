@@ -2,17 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
-public class ShieldAccessProxy implements ShieldAccess {
-    private final RealShieldAccess realAccess;
+public class ShieldAccessProxy {
+    private Player player;
     private final QuestionBank bank;
 
     public ShieldAccessProxy() {
-        this.realAccess = new RealShieldAccess();
         this.bank = new QuestionBank();
     }
 
-    @Override
-    public void grantAccess() {
+    public Player grantShieldAccess(Player player) {
         System.out.println("Proxy: Shield locked! Answer the question to activate...");
 
         Map.Entry<String, String> question = bank.getRandomQuestion();
@@ -37,15 +35,24 @@ public class ShieldAccessProxy implements ShieldAccess {
         );
 
         if (userAnswer != null && userAnswer.equalsIgnoreCase(correctAnswer)) {
-            System.out.println("✅ Correct! Shield access granted.");
-            realAccess.grantAccess();
+            JOptionPane.showMessageDialog(null,
+                    "✅ Correct! Shield activated!",
+                    "Shield Unlocked",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        this.player = new ShieldedPlayer(player, 0);
+            return this.player;
         } else {
-            System.out.println("❌ Wrong answer. Shield remains locked.");
+
+        JOptionPane.showMessageDialog(null,
+                "❌ Wrong answer! You will play without shield.",
+                "Shield Locked",
+                JOptionPane.WARNING_MESSAGE);
         }
+        return player;
     }
 
-    @Override
-    public boolean isGranted() {
-        return realAccess.isGranted();
-    }
 }
+
+
+

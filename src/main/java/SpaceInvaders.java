@@ -194,25 +194,6 @@ public class SpaceInvaders extends JFrame implements Commons {
 
     private class ButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            boolean shieldAccessGranted = false;
-
-            if (wantsShield) {
-                ShieldAccess access = new ShieldAccessProxy();
-                access.grantAccess();
-                shieldAccessGranted = access.isGranted();
-
-                if (!shieldAccessGranted) {
-                    JOptionPane.showMessageDialog(frame2,
-                            "❌ Wrong answer! You will play without shield.",
-                            "Shield Locked",
-                            JOptionPane.WARNING_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(frame2,
-                            "✅ Correct! Shield activated!",
-                            "Shield Unlocked",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
 
             closeIntro();
 
@@ -221,7 +202,6 @@ public class SpaceInvaders extends JFrame implements Commons {
             board.setDifficulty(selectedDifficulty);
             board.setAlienType(selectedAlienType);
             board.setWantsShield(wantsShield);
-            board.setshieldAccess(shieldAccessGranted);
 
             board.startGame();
 
