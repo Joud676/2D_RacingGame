@@ -10,6 +10,13 @@ public class GameIntegrationAdapter {
         backgroundMusic.loop();  // ← نداء مباشر
     }
 
+    // إيقاف موسيقى الخلفية
+    public void stopBackgroundMusic() {
+        if (backgroundMusic != null) {
+            backgroundMusic.stop(); // ← نداء مباشر
+        }
+    }
+
     // تشغيل صوت الانفجار مرة واحدة
     public void playExplosionSound(String path) {
         explosionSound = new Sound(path);

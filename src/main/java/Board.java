@@ -235,6 +235,11 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setColor(Color.white);
         g.setFont(small);
         g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2);
+
+        if (adapter != null) {
+            adapter.stopBackgroundMusic(); // 🎵 يوقف الموسيقى عند نهاية اللعبة
+        }
+
     }
 
     public void animationCycle() {
