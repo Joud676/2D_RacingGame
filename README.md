@@ -39,7 +39,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 ### **1. Adapter Pattern**
 
 * **Class:** `GameIntegrationAdapter`
-* **Purpose:** Connects and adapts external systems (like **Sound** and **Barrier**) to the main game logic.
+* **Purpose:** Connects and adapts **external Sound systems** to the main game logic.
 * **Benefit:** Allows components with incompatible interfaces to work seamlessly together.
 
 
@@ -132,6 +132,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 | **Stage 2** | Adapter, Decorator, Proxy, Flyweight | `GameIntegrationAdapter`, `ShieldedPlayer`, `ShieldAccessProxy`, `Alien` |
 
 ---
+
 
 
 
