@@ -25,12 +25,12 @@ public  abstract class PlayerDecorator extends Player {
 
     @Override
     public void draw(Graphics g) {
-        decoratedPlayer.draw(g); //Delegation of the drawing method
+        decoratedPlayer.draw(g);
     }
 
     @Override
     public void shoot() {
-        decoratedPlayer.shoot(); //Delegation of the shooting method
+        decoratedPlayer.shoot();
     }
 
     @Override

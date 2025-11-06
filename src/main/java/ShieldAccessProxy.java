@@ -3,7 +3,7 @@ import java.awt.*;
 import java.util.Map;
 
 public class ShieldAccessProxy {
-    private Player player;
+    private PlayerDecorator player;
     private final QuestionBank bank;
 
     public ShieldAccessProxy() {

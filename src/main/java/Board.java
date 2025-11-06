@@ -126,18 +126,12 @@ public class Board extends JPanel implements Runnable, Commons {
         if (wantsShield) {
             ShieldAccessProxy proxy = new ShieldAccessProxy();
 
-            Player resultPlayer = proxy.grantShieldAccess(player);
+            player = proxy.grantShieldAccess(player);
 
-            player = resultPlayer;
 
             if (player instanceof ShieldedPlayer) {
-                System.out.println("Correct Answer, Applying shield to player!");
                 shieldActive = true;
-            } else {
-                System.out.println("Wrong Answer! No shield applied");
             }
-        } else {
-            System.out.println("No shield applied since the User did not want shield");
         }
 
         AbstractFactory shotFactory = FactoryProducer.getFactory("Shot");
@@ -169,7 +163,7 @@ public class Board extends JPanel implements Runnable, Commons {
         // if shielded or any normal player
         if (player.isVisible()) {
             if (shieldActive) {
-                ((ShieldedPlayer) player).draw(g);
+                 player.draw(g); // shielded player
             } else {
                 g.drawImage(player.getImage(), player.getX(), player.getY(), this);
             }
@@ -236,9 +230,8 @@ public class Board extends JPanel implements Runnable, Commons {
         g.setFont(small);
         g.drawString(message, (BOARD_WIDTH - metr.stringWidth(message)) / 2, BOARD_WIDTH / 2);
 
-        if (adapter != null) {
-            adapter.stopBackgroundMusic(); // 🎵 يوقف الموسيقى عند نهاية اللعبة
-        }
+            adapter.stopBackgroundMusic();
+
 
     }
 
@@ -332,7 +325,7 @@ public class Board extends JPanel implements Runnable, Commons {
                     if (bombX >= playerX && bombX <= (playerX + PLAYER_WIDTH)
                             && bombY >= playerY && bombY <= (playerY + PLAYER_HEIGHT)) {
                         b.setDestroyed(true);
-                        if (shieldActive) {
+                        if (shieldActive) { // hits logic
                             ShieldedPlayer shieldedPlayer = (ShieldedPlayer) player;
                             shieldedPlayer.hitByBomb(); // add to the hit number
                             if (shieldedPlayer.getShieldHits() >= ShieldedPlayer.MAX_HITS) {
