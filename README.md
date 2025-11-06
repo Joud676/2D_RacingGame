@@ -80,7 +80,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 * Interactive **shield unlocking system** using the Proxy Pattern
 * **Decorated Player** class with a dynamic visual shield overlay
 * **Two-hit protection system** before the shield breaks
-* **Integrated Sound and Barrier systems** through Adapter Pattern
+* **Integrated Sound systems** through Adapter Pattern
 * Optimized **Alien management** with Flyweight for performance
 * Enhanced **learning experience** via real-world pattern questions
 * Real-time feedback for correct or incorrect answers
@@ -132,6 +132,7 @@ Players not only enjoy classic gameplay, they also **learn software design patte
 | **Stage 2** | Adapter, Decorator, Proxy, Flyweight | `GameIntegrationAdapter`, `ShieldedPlayer`, `ShieldAccessProxy`, `Alien` |
 
 ---
+
 
 
 
