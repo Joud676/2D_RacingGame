@@ -46,7 +46,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
     // shield attributes
     private boolean wantsShield;
-    static boolean shieldActive = false;
+    private boolean shieldActive = false;
 
     Random generator = new Random();
 
@@ -131,10 +131,10 @@ public class Board extends JPanel implements Runnable, Commons {
             player = resultPlayer;
 
             if (player instanceof ShieldedPlayer) {
-                System.out.println("Applying shield to player! (Access Granted)");
+                System.out.println("Correct Answer, Applying shield to player!");
                 shieldActive = true;
             } else {
-                System.out.println("No shield applied (Answer Wrong/No Access)");
+                System.out.println("Wrong Answer! No shield applied");
             }
         } else {
             System.out.println("No shield applied since the User did not want shield");
