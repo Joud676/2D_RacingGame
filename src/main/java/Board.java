@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 
-public class Board extends JPanel implements Runnable, Commons {
+public class Board extends JPanel implements Runnable, Commons ,PlayerObserver {
 
     private boolean gameInitialized = false;
     private static final long serialVersionUID = 1L;
@@ -122,6 +122,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
         AbstractFactory playerFactory = FactoryProducer.getFactory("Player");
         player = playerFactory.getPlayer(selectedPlayerType);
+        player.addObserver(this);
 
         if (wantsShield) {
             ShieldAccessProxy proxy = new ShieldAccessProxy();
@@ -144,6 +145,15 @@ public class Board extends JPanel implements Runnable, Commons {
         if (animator == null || !ingame) {
             animator = new Thread(this);
         }
+    }
+    @Override
+    public void update(Player player) {
+        System.out.println(
+                "[Observer] Player updated → X: " + player.getX() +
+                        " | Y: " + player.getY() +
+                        " | Speed: " + player.getSpeed() +
+                        " | Type: " + player.getClass().getSimpleName()
+        );
     }
 
     public void drawAliens(Graphics g) {
@@ -416,6 +426,11 @@ public class Board extends JPanel implements Runnable, Commons {
                         player = new ShieldedPlayer(newPlayer, oldShieldHits);
                     } else {
                         player = newPlayer;
+                    }
+                    if (player instanceof ShieldedPlayer) {
+                        ((ShieldedPlayer) player).getDecoratedPlayer().addObserver(Board.this);
+                    } else {
+                        player.addObserver(Board.this);
                     }
 
                 }
