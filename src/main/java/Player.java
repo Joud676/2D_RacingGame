@@ -2,6 +2,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -14,6 +17,8 @@ public abstract class Player extends Sprite implements Commons {
 
 	protected int width;
 	protected int speed;
+
+	private final List<PlayerObserver> observers = new ArrayList<>();
 
 	public Player() {
 	// removed image
@@ -33,12 +38,29 @@ public abstract class Player extends Sprite implements Commons {
 		System.out.println(this.getClass().getSimpleName() + ": Base player fires a standard shot.");
 	}
 
+	// ====== Observer methods ======
+	public void addObserver(PlayerObserver observer) {
+		observers.add(observer);
+	}
+
+	public void removeObserver(PlayerObserver observer) {
+		observers.remove(observer);
+	}
+
+	protected void notifyObservers() {
+		for (PlayerObserver observer : observers) {
+			observer.update(this);
+		}
+	}
+
+
 	public void act() {
 		x += dx;
 		if (x <= 2) x = 2;
 		if (x >= BOARD_WIDTH - 2 * width)
 			x = BOARD_WIDTH - 2 * width;
 	}
+
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
@@ -55,8 +77,9 @@ public abstract class Player extends Sprite implements Commons {
 		int key = e.getKeyCode();
 		if (key == KeyEvent.VK_LEFT || key == KeyEvent.VK_RIGHT) {
 			dx = 0;
+			notifyObservers();
 		}
 	}
 
-	
+
 }
