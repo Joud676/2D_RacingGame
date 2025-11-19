@@ -14,15 +14,23 @@ public abstract class Player extends Sprite implements Commons {
 
 	protected int width;
 	protected int speed;
+	protected PlayerState state;
 
 	public Player() {
 	// removed image
 		setX(START_X);
 		setY(START_Y);
-
+		this.state = new VulnerableState();
 	//	this.speed = getSpeed();
 	}
 
+	public void setState(PlayerState state) {
+		this.state = state;
+	}
+
+	public void hit() {
+		state.hit(this);
+	}
 	public abstract String getImagePath();
 	public abstract int getSpeed();
 
