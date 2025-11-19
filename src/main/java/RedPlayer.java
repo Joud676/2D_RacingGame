@@ -16,6 +16,7 @@ public class RedPlayer extends Player {
 
     @Override
     public int getSpeed() {
+
         return 2;
     }
 

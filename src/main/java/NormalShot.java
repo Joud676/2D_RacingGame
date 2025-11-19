@@ -2,20 +2,10 @@ import javax.swing.*;
 
 public class NormalShot extends Shot {
 
-    final String NORMAL_SHOT ="/img/normalShot.png";
-
-
-    public NormalShot(){
-
-    }
-
     @Override
-    public void setupShot(int x, int y){
-
-        ImageIcon ii = new ImageIcon(this.getClass().getResource(NORMAL_SHOT));
+    protected void loadImage() {
+        ImageIcon ii = new ImageIcon(getClass().getResource("/img/normalShot.png"));
         setImage(ii.getImage());
-        setX(x + H_SPACE);
-        setY(y - V_SPACE);
-
     }
+
 }
