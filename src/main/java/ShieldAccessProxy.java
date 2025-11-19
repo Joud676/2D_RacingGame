@@ -24,8 +24,10 @@ public class ShieldAccessProxy {
                     "Shield Unlocked",
                     JOptionPane.INFORMATION_MESSAGE);
 
-        this.player = new ShieldedPlayer(player, 0);
-            return this.player;
+            Player newPlayer = new ShieldedPlayer(player, 0);
+            newPlayer.setState(new ShieldedState());
+            return newPlayer;
+
         } else {
 
         JOptionPane.showMessageDialog(null,
