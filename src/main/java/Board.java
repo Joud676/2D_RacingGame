@@ -130,7 +130,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
 
             if (player instanceof ShieldedPlayer) {
-                shieldActive = true;
+                shieldActive = true; // to draw the method according to the player type
             }
         }
 
@@ -165,7 +165,7 @@ public class Board extends JPanel implements Runnable, Commons {
             if (shieldActive) {
                  player.draw(g); // shielded player
             } else {
-                g.drawImage(player.getImage(), player.getX(), player.getY(), this);
+                g.drawImage(player.getImage(), player.getX(), player.getY(), this); // basic player
             }
         }
         if (player.isDying()) {
@@ -405,7 +405,7 @@ public class Board extends JPanel implements Runnable, Commons {
 
 
                     if (player instanceof ShieldedPlayer) {
-                        oldShieldHits = ((ShieldedPlayer) player).getShieldHits();
+                        oldShieldHits = ((ShieldedPlayer) player).getShieldHits(); // compiler
                         player = ((ShieldedPlayer) player).getDecoratedPlayer();
                     }
 

@@ -28,9 +28,6 @@ public class AlienFactory extends AbstractFactory {
     @Override
     public Alien getAlien(String alienType) {
 
-        // the clint of the flyweight
-        // خذ النوع الي هو الkey وارسله لميثود  getSharedAlienImage هذه تشةف اذا هذا النوع مسوى ترجع صورته
-        // بعدها الصورة تتخزن هنا
         Image sharedImage = getSharedAlienImage(alienType);
 
         Alien alien = null;

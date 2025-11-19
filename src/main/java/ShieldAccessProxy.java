@@ -5,7 +5,6 @@ import java.util.Map;
 public class ShieldAccessProxy {
     private PlayerDecorator player;
     private final QuestionBank bank;
-
     public ShieldAccessProxy() {
         this.bank = new QuestionBank();
     }

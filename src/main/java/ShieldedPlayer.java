@@ -14,10 +14,8 @@ public class ShieldedPlayer extends PlayerDecorator{
     }
     @Override
     public void draw(Graphics g) {
-        // أول نرسم اللاعب الأصلي
         decoratedPlayer.draw(g);
 
-        // بعدين نرسم الدرع فوقه (طبقة شفافة)
         g.drawImage(shieldOverlay, decoratedPlayer.getX() + 7, decoratedPlayer.getY() + 8, null);
     }
 
@@ -26,6 +24,7 @@ public class ShieldedPlayer extends PlayerDecorator{
         super.shoot();
         System.out.println("Player is protected by a shield!");
     }
+
     public Player getDecoratedPlayer() {
         return decoratedPlayer;
     }
