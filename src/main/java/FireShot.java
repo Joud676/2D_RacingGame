@@ -2,18 +2,9 @@ import javax.swing.*;
 
 public class FireShot extends Shot{
 
-    final String FIRE_SHOT ="/img/fireShot.png";
-
-    public FireShot(){
-
-    }
-
     @Override
-    public void setupShot(int x, int y){
-        ImageIcon ii = new ImageIcon(this.getClass().getResource(FIRE_SHOT));
+    protected void loadImage() {
+        ImageIcon ii = new ImageIcon(getClass().getResource("/img/fireShot.png"));
         setImage(ii.getImage());
-        setX(x + H_SPACE);
-        setY(y - V_SPACE);
     }
-
 }

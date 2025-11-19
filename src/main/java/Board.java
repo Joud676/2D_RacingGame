@@ -400,15 +400,15 @@ public class Board extends JPanel implements Runnable, Commons,PlayerObserver  {
                 if (key == KeyEvent.VK_SPACE && !shot.isVisible()) {
                     selectedShotType = "Normal";
                     shot = shotFactory.getShot(selectedShotType);
-                    shot.setupShot(x, y);
+                    shot.build(x, y);
                 } else if (key == KeyEvent.VK_W && !shot.isVisible()) {
                     selectedShotType = "Water";
                     shot = shotFactory.getShot(selectedShotType);
-                    shot.setupShot(x, y);
+                    shot.build(x, y);
                 } else if (key == KeyEvent.VK_F && !shot.isVisible()) {
                     selectedShotType = "Fire";
                     shot = shotFactory.getShot(selectedShotType);
-                    shot.setupShot(x, y);
+                    shot.build(x, y);
                 }
 
                 if (key == KeyEvent.VK_1 || key == KeyEvent.VK_2 || key == KeyEvent.VK_3) {

@@ -1,20 +1,10 @@
 import javax.swing.*;
 
 public class WaterShot extends Shot{
-
-    final String WATER_SHOT ="/img/waterShot.png";
-
-    public WaterShot(){
-
-    }
-
     @Override
-    public void setupShot(int x, int y){
-
-        ImageIcon ii = new ImageIcon(this.getClass().getResource(WATER_SHOT));
+    protected void loadImage() {
+        ImageIcon ii = new ImageIcon(getClass().getResource("/img/waterShot.png"));
         setImage(ii.getImage());
-        setX(x + H_SPACE);
-        setY(y - V_SPACE);
-
     }
+
 }
