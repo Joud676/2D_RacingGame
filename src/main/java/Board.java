@@ -325,8 +325,19 @@ public class Board extends JPanel implements Runnable, Commons {
                     if (bombX >= playerX && bombX <= (playerX + PLAYER_WIDTH)
                             && bombY >= playerY && bombY <= (playerY + PLAYER_HEIGHT)) {
                         b.setDestroyed(true);
-                        player.hit();
-
+                        if (shieldActive) { // hits logic
+                            ShieldedPlayer shieldedPlayer = (ShieldedPlayer) player;
+                            shieldedPlayer.hitByBomb(); // add to the hit number
+                            if (shieldedPlayer.getShieldHits() >= ShieldedPlayer.MAX_HITS) {
+                                player = shieldedPlayer.getDecoratedPlayer();
+                                shieldActive = false;
+                                System.out.println("Shield destroyed! Access revoked.");
+                            }
+                        } else {
+                            ImageIcon ii = new ImageIcon(this.getClass().getResource(expl));
+                            player.setImage(ii.getImage());
+                            player.setDying(true);
+                        }
                     }
                 }
                 if (!b.isDestroyed()) {
@@ -358,10 +369,7 @@ public class Board extends JPanel implements Runnable, Commons {
         }
         gameOver();
     }
-    public void setPlayer(Player p) {
-        this.player = p;
-        this.shieldActive = false;   // عشان drawPlayer ما يرسم الدرع
-    }
+
     private class TAdapter extends KeyAdapter {
 
         public void keyReleased(KeyEvent e) {
@@ -414,7 +422,6 @@ public class Board extends JPanel implements Runnable, Commons {
 
                     if (shieldActive) {
                         player = new ShieldedPlayer(newPlayer, oldShieldHits);
-                        player.setState(new ShieldedState());
                     } else {
                         player = newPlayer;
                     }
